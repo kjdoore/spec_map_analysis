@@ -47,7 +47,7 @@ pip install git+https://github.com/kjdoore/spec_map_analysis.git
 
 ## Manual
 
-The manual can be found [here](https://github.com/kjdoore/spec_map_analysis/tree/master/docs).
+The manual can be found [here](https://github.com/kjdoore/spec_map_analysis/tree/main/docs).
 
 
 ## Reporting Issues

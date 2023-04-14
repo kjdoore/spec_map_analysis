@@ -1,4 +1,4 @@
-# Spectral Map Fitting ([spec_map_analysis.spectra_fitting](https://github.com/kjdoore/spec_map_analysis/blob/master/docs/user_docs/spectra_fitting.md))
+# Spectral Map Fitting ([spec_map_analysis.spectra_fitting](https://github.com/kjdoore/spec_map_analysis/blob/main/docs/user_docs/spectra_fitting.md))
 
 ## Introduction
 
@@ -7,11 +7,12 @@ In **spec_map_analysis**, the **spectra_fitting** sub-package is the emission li
 
 ## Fitting Spectral Maps
 
-Fitting a spectral map with default settings only requires a simple call of the [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/master/spec_map_analysis/spectra_fitting/line_map.py) function. The only required inputs are the name of output FITS file; the input FITS file; a list of extensions for the input file that contain the spectral cube, its uncertainty, and wavelengths of the spectra; and the peak rest-frame wavelength of the emission line.
+Fitting a spectral map with default settings only requires a simple call of the [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/main/spec_map_analysis/spectra_fitting/line_map.py) function. The only required inputs are the name of output FITS file; the input FITS file; a list of extensions for the input file that contain the spectral cube, its uncertainty, and wavelengths of the spectra; and the peak rest-frame wavelength of the emission line.
 
 **NOTE**: The input data must be in units of **Jy** for the fluxes and **&mu;m** for the wavelengths. No options for unit conversion are provided.
 
 For example, we can fit a spectral cube containing the IR emission line [OIII] 52&mu;m using:
+
 ```python
 from spec_map_analysis.spectra_fitting import line_map
 
@@ -33,7 +34,7 @@ The result from the fitting is saved to the given `output_file` as a FITS file t
 
 ### Fitting with Continuum
 
-Fitting the emission line simultaneously with continuum emission simply requires the addition of the `nterms` keyword in the call of [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/master/spec_map_analysis/spectra_fitting/line_map.py). The values of `nterms` must be integer values from 3 to 6, where each value has the following continuum component:
+Fitting the emission line simultaneously with continuum emission simply requires the addition of the `nterms` keyword in the call of [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/main/spec_map_analysis/spectra_fitting/line_map.py). The values of `nterms` must be integer values from 3 to 6, where each value has the following continuum component:
 
 - `nterms=3` - Fits the emission line **without** a continuum component (Default)
 
@@ -51,7 +52,7 @@ where a<sub>0</sub> is the peak height of the fit Gaussian, a<sub>1</sub> is the
 
 ### Fitting with Specified or Revised Parameter Ranges
 
-The [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/master/spec_map_analysis/spectra_fitting/line_map.py) function has the capability for the allowed ranges of fitting parameters to be user specified to prevent unrealistic values. Alternatively, parameter ranges can be automatically restricted based off of the parameter range of high signal-to-noise pixels from an initial fit to the data. Both the user specified and automatic methods can be used simultaneously, which will only restrict the user specified parameter range further.
+The [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/main/spec_map_analysis/spectra_fitting/line_map.py) function has the capability for the allowed ranges of fitting parameters to be user specified to prevent unrealistic values. Alternatively, parameter ranges can be automatically restricted based off of the parameter range of high signal-to-noise pixels from an initial fit to the data. Both the user specified and automatic methods can be used simultaneously, which will only restrict the user specified parameter range further.
 
 To manually set the parameter ranges, the keywords `lower_bounds` and `upper_bounds` must be set in tandem to `numpy` arrays with lengths of `nterms`. Each value in the arrays correspond to the parameters given by the function defined by `nterms`. Therefore, the first value must be the min/max height of the Gaussian in **Jy**; the second is the min/max peak offset in **km/s**; the third is the min/max FWHM of the Gaussian in **km/s**, which is converted to sigma; and the min/max polynomial terms in **Jy** depending on the value of `nterms`. For a specific parameter to have an unlimited range, the value in `lower_bounds` or `upper_bounds` must be set to negative or positive infinity, respectively, using the `numpy` infinity values (`numpy.inf`).
 
@@ -100,7 +101,7 @@ line_map(out_file, input_file, extensions, center_wavelength,
 
 ### Fitting with the MCMC Algorithm
 
-The **spectra_fitting** sub-package also allows for the fitting of the emission lines using the Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler as implemented in the [emcee package](https://emcee.readthedocs.io/en/stable/#). To fit the data with the MCMC algorithm, simply call the [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/master/spec_map_analysis/spectra_fitting/line_map.py) function as shown in any of the examples above, but now with the `mcmc` keyword set as `True`. The keywords specific to the MCMC algorithm (`nwalkers`, `nsteps`, and `discard`) can optionally be set to change the number of walkers in the MCMC ensemble, the number of steps taken in the MCMC chain, and the number of burn-in phase steps that should be discarded, respectively.
+The **spectra_fitting** sub-package also allows for the fitting of the emission lines using the Affine Invariant Markov chain Monte Carlo (MCMC) Ensemble sampler as implemented in the [emcee package](https://emcee.readthedocs.io/en/stable/#). To fit the data with the MCMC algorithm, simply call the [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/main/spec_map_analysis/spectra_fitting/line_map.py) function as shown in any of the examples above, but now with the `mcmc` keyword set as `True`. The keywords specific to the MCMC algorithm (`nwalkers`, `nsteps`, and `discard`) can optionally be set to change the number of walkers in the MCMC ensemble, the number of steps taken in the MCMC chain, and the number of burn-in phase steps that should be discarded, respectively.
 
 For example, to fit a spectral map of [OIII] 52 &mu;m without continuum emission and unrevised parameter ranges, using the MCMC algorithm, run:
 
@@ -124,4 +125,4 @@ The result from the MCMC fitting is the same as the standard output, except the 
 
 ### Note
 
-See the description of [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/master/spec_map_analysis/spectra_fitting/line_map.py) and [**line_fitting()**](https://github.com/kjdoore/spec_map_analysis/blob/master/spec_map_analysis/spectra_fitting/line_fitting.py) for a full list and detailed description of all optional parameters not discussed here.
+See the description of [**line_map()**](https://github.com/kjdoore/spec_map_analysis/blob/main/spec_map_analysis/spectra_fitting/line_map.py) and [**line_fitting()**](https://github.com/kjdoore/spec_map_analysis/blob/main/spec_map_analysis/spectra_fitting/line_fitting.py) for a full list and detailed description of all optional parameters not discussed here.
